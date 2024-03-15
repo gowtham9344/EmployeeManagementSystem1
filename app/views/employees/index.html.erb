@@ -1,0 +1,45 @@
+<style>
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top:100px;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #ffffff;
+  }
+</style>
+
+<%= render 'header'%>
+<div class="main-container">
+  <% @employees.each do |employee| %>
+    <a href="<%= employee_path(employee) %>" class="team-link">
+    <div class="team-container">
+      <div class="team-details">
+        <div class="detail">
+          <strong>Name:</strong> <%= employee.name %>
+        </div>
+        <div class="detail">
+          <strong>Email:</strong> <%= employee.email %>
+        </div>
+        <div class="detail">
+          <strong>Team:</strong> <%= employee.team ? employee.team.name : 'Not Assigned' %>
+        </div>
+      </div>
+      <div class="actions">
+        <%= link_to edit_employee_path(employee),
+            class: "bi bi-pencil-square" do %>
+        <% end %>
+        <%= link_to employee_path(employee),
+            method: :delete,
+            data: { confirm: 'Are you sure?' },
+            class: "bi bi-trash3-fill" do %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+
