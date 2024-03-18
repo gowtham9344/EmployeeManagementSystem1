@@ -19,20 +19,20 @@ class TeamsController < ApplicationController
             end
             redirect_to @team
         else
-            render 'new'
+            render "/teams/new"
         end
     end
 
     def update
         @team = Team.find(params[:id])
-        puts @team.inspect
-        if(@team.manager)
+
+        if(@team && @team.manager)
             @team.manager.team_id = nil
             @team.manager.is_manager = false
             @team.manager.save
         end
 
-        if @team.update(team_params)
+        if(@team && @team.update(team_params))
             if(@team.manager)
                 @team.manager.team_id = @team.id
                 @team.manager.is_manager = true
@@ -40,6 +40,8 @@ class TeamsController < ApplicationController
             end
             
             redirect_to @team
+        elsif(!@team)
+            redirect_to @teams
         else
           render 'edit'
         end
@@ -55,12 +57,15 @@ class TeamsController < ApplicationController
 
     def destroy
         @team = Team.find(params[:id])
-        if(@team.manager)
+        if(@team && @team.manager)
             @team.manager.is_manager = false
             @team.manager.save
         end
 
-        @team.destroy
+        if(@team)
+            @team.destroy
+        end
+
         redirect_to teams_path
     end
 

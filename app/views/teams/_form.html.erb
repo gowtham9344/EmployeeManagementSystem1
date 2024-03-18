@@ -1,37 +1,32 @@
 <div class="center-container">
   <%= form_with model: @team, local: true do |form| %>
-    <% if @team.errors && @team.errors.any? %>
-      <div id="error_explanation">
-        <h2>
-          <%= pluralize(@team.errors.count, "error") %> prohibited
-          this Team from being saved:
-        </h2>
-        <ul>
-          <% @team.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-
     <p>
-      <%= form.label :name %><br>
+      <%= form.label :name , 'Name <span class="required">*</span>'.html_safe , required: true %><br>
       <%= form.text_field :name %>
+      <% if @team.errors.any? && @team.errors[:name].any? %>
+        <div id="error_explanation">
+          <ul>
+              <li><%= "Name of the Team " + @team.errors[:name][0] %></li>
+          </ul>
+        </div>
+      <% end %>
     </p>
 
     <p>
       <%= form.label :manager_id, 'Select Manager' %><br>
-      <%= form.collection_select :manager_id, [OpenStruct.new(id: nil, name: "No one")] + Employee.where('team_id IS NULL OR team_id = ?', @team.id), :id, :name, { prompt: 'Select Manager' }, { value_method: :id } %>
+      <%= form.collection_select :manager_id, [OpenStruct.new(id: nil, name: "No one")] + Employee.where('team_id IS NULL OR team_id = ?', @team.id).order(:name), :id, :name, { prompt: 'Select Manager' }, { value_method: :id } %>
     </p>
 
     <p>
       <%= form.label 'Select Members' %><br>
-      <% employees = Employee.where('team_id IS NULL OR team_id = ?', @team.id) %>
+      <% employees = Employee.where('team_id IS NULL OR team_id = ?', @team.id).order(:name) %>
       <% if employees.any? %>
+        <div class="member-select-dropdown">
         <%= form.collection_check_boxes :employee_ids, employees, :id, :name do |cb| %>
-          <%= cb.check_box %>
-          <%= cb.label %><br>
+          <%= cb.check_box  %>
+          <%= cb.label class: 'labels-dropdown'%><br>
         <% end %>
+        </div>
       <% else %>
         <p class="no-employee">No employees available.</p>
       <% end %>
@@ -45,7 +40,6 @@
 
 
    <script>
-    
       var initialEmployeeList = <%= raw Employee.where('team_id IS NULL OR team_id = ?', @team.id).to_json %>;
 
       var managerSelect = document.getElementById('team_manager_id');

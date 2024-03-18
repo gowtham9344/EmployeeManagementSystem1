@@ -109,18 +109,28 @@
 
     #error_explanation {
       color: red;
+      font-size: 12px;
     }
     
-    #error_explanation h2 {
-      font-size: 18px;
-    }
     
     #error_explanation ul {
       list-style-type: none;
+      display: block;
+      margin-left: -35px;
+    }
+
+    .list-items-check{
+      font-weight: 100;
     }
     
     #error_explanation li {
-      margin-bottom: 5px;
+      margin-bottom: 2px;
+    }
+
+    .member-select-dropdown{
+      height:110px;
+      overflow-y: auto;
+      background-color: #E9E9ED;
     }
     
     form {
@@ -153,6 +163,7 @@
     form .collection_check_boxes label {
       display: inline-block;
       margin-right: 10px;
+      
     }
     
     form .collection_check_boxes input[type="checkbox"] {
@@ -181,8 +192,8 @@
       border-radius: 8px;
       background-color: #ccc;
       color:#000000;
-      overflow-y: auto;
       box-shadow: 0 0 10px rgba(211, 211, 211, 0.5);
+      overflow-y: auto;
     }
 
 
@@ -228,4 +239,13 @@
       width:fit-content;
       margin-top: 50px;
       margin-bottom: 50px;
+    }
+
+    .required {
+      color: red; 
+    }
+    
+    .labels-dropdown{
+      font-weight: normal;
+      font-size: 14px;
     }

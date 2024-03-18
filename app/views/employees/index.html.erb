@@ -14,7 +14,7 @@
 
 <%= render 'header'%>
 <div class="main-container">
-  <% @employees.each do |employee| %>
+  <% @employees.order(:name).each do |employee| %>
     <a href="<%= employee_path(employee) %>" class="team-link">
     <div class="team-container">
       <div class="team-details">

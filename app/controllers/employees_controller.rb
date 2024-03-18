@@ -31,12 +31,12 @@ class EmployeesController < ApplicationController
         employee1 = Employee.find(params[:id])
         employee2 = employee1.team ? employee1.team.manager : nil
 
-        if(@employee.team)
+        if(@employee && @employee.team)
             @employee.team.manager_id = nil
             @employee.team.save
         end
        
-        if @employee.update(employee_params)
+        if(@employee && @employee.update(employee_params))
             if(@employee.is_manager == true)
                 if(employee2 && employee2.team_id == @employee.team_id)
                     employee2.is_manager = 0
@@ -62,13 +62,15 @@ class EmployeesController < ApplicationController
     def destroy
         @employee = Employee.find(params[:id])
 
-        if @employee.is_manager?
+        if(@employee && @employee.is_manager?)
             @employee.team.manager_id = nil
             @employee.team.save
         end
 
-        @employee.destroy
-       
+        if(@employee)
+            @employee.destroy
+        end
+        
         redirect_to employees_path
     end
 

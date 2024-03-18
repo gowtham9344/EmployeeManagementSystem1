@@ -13,7 +13,7 @@
 </style>
 <%= render 'header'%>
 <div class="main-container">
-  <% @teams.each do |team| %>
+  <% @teams.order(:name).each do |team| %>
     <a href="<%= team_path(team) %>" class="team-link">
       <div class="team-container">
         <div class="team-details">
@@ -30,7 +30,7 @@
           </div>
         </div>
         <div class="actions">
-          <%= link_to edit_team_path(team),
+          <%= link_to edit_team_path(team,format: :turbo_stream),
             class: "bi bi-pencil-square" do %>
           <% end %>
           <%= link_to team_path(team),
