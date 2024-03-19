@@ -1,12 +1,13 @@
 <div class="index-container">
 <div class="center-container">
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <h2 class="h2_container">Sign in</h2>
   <p>
     <%= f.label :email , 'Email <span class="required">*</span>'.html_safe %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </p>
 
-  <p>
+  <p class="field">
     <%= f.label :password , 'Password <span class="required">*</span>'.html_safe %><br />
     <%= f.password_field :password, autocomplete: "current-password" %>
   </p>
@@ -25,7 +26,16 @@
 </div>
 </div>
 <script>
-  document.querySelectorAll('.signin').forEach(function(element) {
-        element.className += ' active'
-  });
+  current_route = "<%= request.path %>"
+
+  if(current_route.match("admin")){
+    document.querySelectorAll('.signin1').forEach(function(element) {
+          element.className += ' active'
+    });
+  }
+  else{
+    document.querySelectorAll('.signin').forEach(function(element) {
+          element.className += ' active'
+    });
+  }
 </script>

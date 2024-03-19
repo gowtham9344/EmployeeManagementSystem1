@@ -1,5 +1,6 @@
 class TeamsController < ApplicationController
-    before_action :authenticate_user!
+    before_action :authenticate_user!, unless: :admin_signed_in?, only: [:show, :index]
+    before_action :authenticate_admin!,except:[:show,:index]
 
     def new
         @team = Team.new

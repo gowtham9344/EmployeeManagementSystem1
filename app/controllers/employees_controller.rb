@@ -1,5 +1,6 @@
 class EmployeesController < ApplicationController
-    before_action :authenticate_user!
+    before_action :authenticate_user!, unless: :admin_signed_in?, only: [:show, :index]
+    before_action :authenticate_admin!,except:[:show,:index]
 
     def new
         @employee = Employee.new
@@ -90,4 +91,5 @@ class EmployeesController < ApplicationController
         params.require(:employee).permit(:name,:email,:address,:mobile, :team_id,:is_manager)
     end
 
+    
 end
