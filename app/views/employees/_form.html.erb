@@ -1,76 +1,81 @@
-<div class="center-container">
-  <%= form_with model: @employee, local: true do |form| %>
-  <p>
-    <%= form.label :name , 'Name <span class="required">*</span>'.html_safe , required: true%><br>
-    <%= form.text_field :name %>
-    <% if @employee.errors.any? && @employee.errors[:name].any? %>
-      <div id="error_explanation">
-        <ul>
-            <li><%= "Name of the Employee " + @employee.errors[:name][0] %></li>
-        </ul>
-      </div>
+<div class="index-container">
+  <div class="center-container">
+    <%= form_with model: @employee, local: true do |form| %>
+    <p>
+      <%= form.label :name , 'Name <span class="required">*</span>'.html_safe , required: true%><br>
+      <%= form.text_field :name %>
+      <% if @employee.errors.any? && @employee.errors[:name].any? %>
+        <div id="error_explanation">
+          <ul>
+              <li><%= "Name of the Employee " + @employee.errors[:name][0] %></li>
+          </ul>
+        </div>
+      <% end %>
+    </p>
+
+    <p>
+      <%= form.label :email , 'Email <span class="required">*</span>'.html_safe , required: true %><br>
+      <%= form.text_field :email %>
+      <% if @employee.errors.any? && @employee.errors[:email].any? %>
+        <div id="error_explanation">
+          <ul>
+              <li><%= "Email " + @employee.errors[:email][0] %></li>
+          </ul>
+        </div>
+      <% end %>
+    </p>
+
+    <p>
+      <%= form.label :address , 'Address <span class="required">*</span>'.html_safe , required: true %><br>
+      <%= form.text_area :address %>
+      <% if @employee.errors.any? && @employee.errors[:address].any? %>
+        <div id="error_explanation">
+          <ul>
+              <li><%= "Address " + @employee.errors[:address][0] %></li>
+          </ul>
+        </div>
+      <% end %>
+    </p>
+
+    <p>
+      <%= form.label :mobile , 'Mobile Number <span class="required">*</span>'.html_safe , required: true %><br>
+      <%= form.text_field :mobile %>
+      <% if @employee.errors.any? && @employee.errors[:mobile].any? %>
+        <div id="error_explanation">
+          <ul>
+              <li><%= "mobile " + @employee.errors[:mobile][0] %></li>
+          </ul>
+        </div>
+      <% end %>
+    </p>
+
+    <p>
+      <%= form.label :team_id %><br>
+      <%= form.collection_select :team_id, [OpenStruct.new(id: nil, name: "No Team")] + Team.all, :id, :name, prompt: 'Select Team' %>
+    </p>
+
+    <p id="is-manager-section" style="display: none;">
+      <%= form.label :is_manager %>
+      <%= form.check_box :is_manager %>
+    </p>
+
+    <p class="submit-button">
+      <%= form.submit %>
+    </p>
     <% end %>
-  </p>
-
-  <p>
-    <%= form.label :email , 'Email <span class="required">*</span>'.html_safe , required: true %><br>
-    <%= form.text_field :email %>
-    <% if @employee.errors.any? && @employee.errors[:email].any? %>
-      <div id="error_explanation">
-        <ul>
-            <li><%= "Email " + @employee.errors[:email][0] %></li>
-        </ul>
-      </div>
-    <% end %>
-  </p>
-
-  <p>
-    <%= form.label :address , 'Address <span class="required">*</span>'.html_safe , required: true %><br>
-    <%= form.text_area :address %>
-    <% if @employee.errors.any? && @employee.errors[:address].any? %>
-      <div id="error_explanation">
-        <ul>
-            <li><%= "Address " + @employee.errors[:address][0] %></li>
-        </ul>
-      </div>
-    <% end %>
-  </p>
-
-  <p>
-    <%= form.label :mobile , 'Mobile Number <span class="required">*</span>'.html_safe , required: true %><br>
-    <%= form.text_field :mobile %>
-    <% if @employee.errors.any? && @employee.errors[:mobile].any? %>
-      <div id="error_explanation">
-        <ul>
-            <li><%= "mobile " + @employee.errors[:mobile][0] %></li>
-        </ul>
-      </div>
-    <% end %>
-  </p>
-
-  <p>
-    <%= form.label :team_id %><br>
-    <%= form.collection_select :team_id, [OpenStruct.new(id: nil, name: "No Team")] + Team.all, :id, :name, prompt: 'Select Team' %>
-  </p>
-
-  <p id="is-manager-section" style="display: none;">
-    <%= form.label :is_manager %>
-    <%= form.check_box :is_manager %>
-  </p>
-
-  <p class="submit-button">
-    <%= form.submit %>
-  </p>
-  <% end %>
+    </div>
   </div>
-
   <script>
       var teamSelect = document.getElementById('employee_team_id');
       var isManagerSection = document.getElementById('is-manager-section');
       var isManagerCheckbox = document.getElementById('employee_is_manager');
 
-      document.querySelectorAll('.add-team').forEach(function(element) {
+      document.querySelectorAll('.add-team1').forEach(function(element) {
         element.style.display = 'none';
+      });
+
+      document.querySelectorAll('.employee-nav').forEach(function(element) {
+            element.className += ' active'
       });
 
       teamSelect.addEventListener('change', function () {

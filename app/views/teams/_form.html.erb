@@ -1,53 +1,57 @@
-<div class="center-container">
-  <%= form_with model: @team, local: true do |form| %>
-    <p>
-      <%= form.label :name , 'Name <span class="required">*</span>'.html_safe , required: true %><br>
-      <%= form.text_field :name %>
-      <% if @team.errors.any? && @team.errors[:name].any? %>
-        <div id="error_explanation">
-          <ul>
-              <li><%= "Name of the Team " + @team.errors[:name][0] %></li>
-          </ul>
-        </div>
-      <% end %>
-    </p>
-
-    <p>
-      <%= form.label :manager_id, 'Select Manager' %><br>
-      <%= form.collection_select :manager_id, [OpenStruct.new(id: nil, name: "No one")] + Employee.where('team_id IS NULL OR team_id = ?', @team.id).order(:name), :id, :name, { prompt: 'Select Manager' }, { value_method: :id } %>
-    </p>
-
-    <p>
-      <%= form.label 'Select Members' %><br>
-      <% employees = Employee.where('team_id IS NULL OR team_id = ?', @team.id).order(:name) %>
-      <% if employees.any? %>
-        <div class="member-select-dropdown">
-        <%= form.collection_check_boxes :employee_ids, employees, :id, :name do |cb| %>
-          <%= cb.check_box  %>
-          <%= cb.label class: 'labels-dropdown'%><br>
+<div class="index-container">
+  <div class="center-container">
+    <%= form_with model: @team, local: true do |form| %>
+      <p>
+        <%= form.label :name , 'Name <span class="required">*</span>'.html_safe , required: true %><br>
+        <%= form.text_field :name %>
+        <% if @team.errors.any? && @team.errors[:name].any? %>
+          <div id="error_explanation">
+            <ul>
+                <li><%= "Name of the Team " + @team.errors[:name][0] %></li>
+            </ul>
+          </div>
         <% end %>
-        </div>
-      <% else %>
-        <p class="no-employee">No employees available.</p>
-      <% end %>
-    </p>
+      </p>
 
-    <p class="submit-button">
-      <%= form.submit %>
-    </p> 
-  <% end %>
+      <p>
+        <%= form.label :manager_id, 'Select Manager' %><br>
+        <%= form.collection_select :manager_id, [OpenStruct.new(id: nil, name: "No one")] + Employee.where('team_id IS NULL OR team_id = ?', @team.id).order(:name), :id, :name, { prompt: 'Select Manager' }, { value_method: :id } %>
+      </p>
+
+      <p>
+        <%= form.label 'Select Members' %><br>
+        <% employees = Employee.where('team_id IS NULL OR team_id = ?', @team.id).order(:name) %>
+        <% if employees.any? %>
+          <div class="member-select-dropdown">
+          <%= form.collection_check_boxes :employee_ids, employees, :id, :name do |cb| %>
+            <%= cb.check_box  %>
+            <%= cb.label class: 'labels-dropdown'%><br>
+          <% end %>
+          </div>
+        <% else %>
+          <p class="no-employee">No employees available.</p>
+        <% end %>
+      </p>
+
+      <p class="submit-button">
+        <%= form.submit %>
+      </p> 
+    <% end %>
+  </div>
 </div>
-
 
    <script>
       var initialEmployeeList = <%= raw Employee.where('team_id IS NULL OR team_id = ?', @team.id).to_json %>;
 
       var managerSelect = document.getElementById('team_manager_id');
       var employeeCheckboxes = document.querySelectorAll('[name="team[employee_ids][]"]');
-      document.querySelectorAll('.add-team').forEach(function(element) {
-        element.style.display = 'none';
+      document.querySelectorAll('.add-team1').forEach(function(element) {
+        element.style.visibility = "hidden";
       });
 
+      document.querySelectorAll('.team-nav').forEach(function(element) {
+            element.className += ' active'
+      });
 
       managerSelect.addEventListener('change', function () {
         
@@ -70,4 +74,5 @@
       }
 
 
+      
   </script>
