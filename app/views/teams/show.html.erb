@@ -1,27 +1,28 @@
   <div class="center-container1">
     <div class="data-container">
         <p>
-          <strong>Name:</strong>
-          <%= @team.name %>
+          <strong>Team Name :</strong>
+          <%= @team.name.capitalize %>
         </p>
 
         <p>
-          <strong>Manager:</strong>
+          <strong>Manager :</strong>
           <% if @team.manager %>
-            <%= @team.manager.name %>
+            <%= @team.manager.name.capitalize %>
           <% else %>
               Not assigned
           <% end %>
         </p>
 
         <% if @team.employees.any? %>
-          <h2>Team Members</h2>
-          <ul>
-            <% @team.employees.each do |employee| %>
-              <li><%= employee.name %></li>
-              <br>
-            <% end %>
-          </ul>
+          <p><strong>Team Members:</strong></p>
+          <div class="member-select-dropdown1">
+            <ul>
+              <% @team.employees.order(:name).each do |employee| %>
+                <li ><%= employee.name.capitalize %></li>
+              <% end %>
+            </ul>
+          </div>
         <% else %>
           <p>Currently, there are no members in this team.</p>
         <% end %>

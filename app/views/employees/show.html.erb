@@ -2,7 +2,7 @@
   <div class="data-container">
   <p>
     <strong>Name:</strong>
-    <%= @employee.name %>
+    <%= @employee.name.capitalize %>
   </p>
 
   <p>
@@ -23,7 +23,7 @@
   <% if @employee.team.present? %>
     <p>
       <strong>Team:</strong>
-      <%= @employee.team.name %>
+      <%= @employee.team.name.capitalize %>
     </p>
 
     <% if @employee.is_manager? %>
@@ -34,7 +34,7 @@
       <p>
         <strong>Manager:</strong> 
         <% if @employee.team.manager %>
-          <%= @employee.team.manager.name %>
+          <%= @employee.team.manager.name.capitalize %>
         <% else %>
           Not assigned
         <% end %>

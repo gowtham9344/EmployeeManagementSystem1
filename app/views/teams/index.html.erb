@@ -5,12 +5,12 @@
         <div class="team-container">
           <div class="team-details">
             <div class="detail">
-              <strong>Name:</strong> <%= team.name %>
+              <strong>Name:</strong> <%= team.name.capitalize %>
             </div>
             <div class="detail">
               <strong>Manager:</strong>
               <% if team.manager %>
-                <%= team.manager.name %>
+                <%= team.manager.name.capitalize %>
               <% else %>
                 Not assigned
               <% end %>

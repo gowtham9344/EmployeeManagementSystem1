@@ -5,13 +5,13 @@
       <div class="team-container">
         <div class="team-details">
           <div class="detail">
-            <strong>Name:</strong> <%= employee.name %>
+            <strong>Name:</strong> <%= employee.name.capitalize %>
           </div>
           <div class="detail">
             <strong>Email:</strong> <%= employee.email %>
           </div>
           <div class="detail">
-            <strong>Team:</strong> <%= employee.team ? employee.team.name : 'Not Assigned' %>
+            <strong>Team:</strong> <%= employee.team ? employee.team.name.capitalize : 'Not Assigned' %>
           </div>
         </div>
         <% if admin_signed_in? %>
