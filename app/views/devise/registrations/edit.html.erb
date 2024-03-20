@@ -5,6 +5,13 @@
   <p>
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <% if resource.errors.any? && resource.errors[:email].any? %>
+          <div id="error_explanation">
+            <ul>
+                <li><%= "Email " + resource.errors[:email][0] %></li>
+            </ul>
+          </div>
+    <% end %>
   </p>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -14,6 +21,13 @@
   <p>
     <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
     <%= f.password_field :password, autocomplete: "new-password" %>
+    <% if resource.errors.any? && resource.errors[:password].any? %>
+          <div id="error_explanation">
+            <ul>
+                <li><%= "Password " + resource.errors[:password][0] %></li>
+            </ul>
+          </div>
+    <% end %>
     <% if @minimum_password_length %>
       <br />
       <em><%= @minimum_password_length %> characters minimum</em>
@@ -23,11 +37,25 @@
   <p>
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <% if resource.errors.any? && resource.errors[:password_confirmation].any? %>
+          <div id="error_explanation">
+            <ul>
+                <li><%= "Password confirmation " + resource.errors[:password_confirmation][0] %></li>
+            </ul>
+          </div>
+    <% end %>
   </p>
 
   <p>
     <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
     <%= f.password_field :current_password, autocomplete: "current-password" %>
+    <% if resource.errors.any? && resource.errors[:current_password].any? %>
+          <div id="error_explanation">
+            <ul>
+                <li><%= "current password " + resource.errors[:current_password][0] %></li>
+            </ul>
+          </div>
+    <% end %>
   </p>
 
   <p class="submit-button">

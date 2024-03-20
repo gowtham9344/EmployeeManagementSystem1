@@ -5,6 +5,13 @@
     <p>
       <%= f.label :email , 'Email <span class="required">*</span>'.html_safe %><br />
       <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      <% if resource.errors.any? && resource.errors[:email].any? %>
+          <div id="error_explanation">
+            <ul>
+                <li><%= "Email " + resource.errors[:email][0] %></li>
+            </ul>
+          </div>
+      <% end %>
     </p>
 
     <p>
@@ -13,11 +20,25 @@
       <em>(<%= @minimum_password_length %> characters minimum)</em>
       <% end %><br />
       <%= f.password_field :password, autocomplete: "new-password" %>
+      <% if resource.errors.any? && resource.errors[:password].any? %>
+          <div id="error_explanation">
+            <ul>
+                <li><%= "password " + resource.errors[:password][0] %></li>
+            </ul>
+          </div>
+      <% end %>
     </p>
 
     <p>
       <%= f.label :password_confirmation , 'Password confirmation <span class="required">*</span>'.html_safe%><br />
       <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+      <% if resource.errors.any? && resource.errors[:password_confirmation].any? %>
+          <div id="error_explanation">
+            <ul>
+                <li><%= "password confirmation " + resource.errors[:password_confirmation][0] %></li>
+            </ul>
+          </div>
+      <% end %>
     </p>
 
      <p class="submit-button">

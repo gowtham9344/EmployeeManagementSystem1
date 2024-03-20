@@ -13,6 +13,17 @@
   </head>
   <body>
     <%= render 'welcome/header'%>
+   <% if alert %>
+      <div class="alert1">
+        <span><%= alert %></span>
+      </div>
+    <% end %>
+
+    <% if notice %>
+      <div class="notice1">
+        <span><%= notice %></span>
+      </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>

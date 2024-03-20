@@ -186,8 +186,28 @@
       align-items: center;
       height: 80vh; 
     }
-    
 
+    .center-container1 form {
+      width: 400px; 
+      height: fit-content;
+      padding: 20px;
+      border-radius: 8px;
+      background-color: #ccc;
+      color:#000000;
+      box-shadow: 0 0 10px rgba(211, 211, 211, 0.5);
+      overflow-y: auto;
+    }
+
+    .alert1 {
+      background: #721c24;
+      color: #fff;
+    }
+    
+    .notice1 {
+      background: #10d42a;
+      color: #fff;
+    }
+    
     .center-container form {
       width: 400px; 
       height: 500px;
