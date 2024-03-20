@@ -13,13 +13,8 @@ class TeamsController < ApplicationController
     def create 
         @team = Team.new(team_params)
     
-
         if @team.save
-            if(@team.manager)
-                @team.manager.team_id = @team.id
-                @team.manager.is_manager = true
-                @team.manager.save
-            end
+            TeamManagerService.new(@team).set_manager
             redirect_to @team
         else
             render "/teams/new"
@@ -29,19 +24,12 @@ class TeamsController < ApplicationController
     def update
         @team = Team.find(params[:id])
 
-        if(@team && @team.manager)
-            @team.manager.team_id = nil
-            @team.manager.is_manager = false
-            @team.manager.save
-        end
+
+        TeamManagerService.new(@team).remove_manager
+        
 
         if(@team && @team.update(team_params))
-            if(@team.manager)
-                @team.manager.team_id = @team.id
-                @team.manager.is_manager = true
-                @team.manager.save
-            end
-            
+            TeamManagerService.new(@team).set_manager
             redirect_to @team
         elsif(!@team)
             redirect_to @teams
@@ -60,10 +48,7 @@ class TeamsController < ApplicationController
 
     def destroy
         @team = Team.find(params[:id])
-        if(@team && @team.manager)
-            @team.manager.is_manager = false
-            @team.manager.save
-        end
+        TeamManagerService.new(@team).remove_manager
 
         if(@team)
             @team.destroy
@@ -75,7 +60,6 @@ class TeamsController < ApplicationController
     
 
     private
-
     def team_params
         params.require(:team).permit(:name,:manager_id,employee_ids: [])
     end

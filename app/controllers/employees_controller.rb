@@ -15,14 +15,7 @@ class EmployeesController < ApplicationController
        
         
         if @employee.save
-            if(@employee.is_manager)
-                if(@employee.team.manager)
-                    @employee.team.manager.is_manager = false
-                    @employee.team.manager.save
-                end
-                @employee.team.manager_id = @employee.id
-                @employee.team.save
-            end
+            EmployeeManagerService.new(@employee).assign_manager
             redirect_to @employee
         else
             render 'new'
@@ -34,28 +27,10 @@ class EmployeesController < ApplicationController
         employee1 = Employee.find(params[:id])
         employee2 = employee1.team ? employee1.team.manager : nil
 
-        if(@employee && @employee.team)
-            @employee.team.manager_id = nil
-            @employee.team.save
-        end
+        EmployeeManagerService.new(@employee).remove_manager
        
         if(@employee && @employee.update(employee_params))
-            if(@employee.is_manager == true)
-                if(employee2 && employee2.team_id == @employee.team_id)
-                    employee2.is_manager = 0
-                    employee2.save
-                elsif(@employee.team.manager)
-                    @employee.team.manager.is_manager = false
-                    @employee.team.manager.save
-                end
-                @employee.team.manager_id = @employee.id
-                @employee.team.save
-            else
-                if(employee2 && @employee.id != employee2.id)
-                    employee1.team.manager_id = employee2.id
-                    employee1.team.save
-                end
-            end
+            EmployeeManagerService.new(@employee).change_manager(employee1,employee2)
             redirect_to @employee
         else
            render 'edit'
@@ -65,10 +40,7 @@ class EmployeesController < ApplicationController
     def destroy
         @employee = Employee.find(params[:id])
 
-        if(@employee && @employee.is_manager?)
-            @employee.team.manager_id = nil
-            @employee.team.save
-        end
+        EmployeeManagerService.new(@employee).remove_manager
 
         if(@employee)
             @employee.destroy
