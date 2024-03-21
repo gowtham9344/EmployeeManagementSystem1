@@ -13,7 +13,7 @@
               Not assigned
           <% end %>
         </p>
-
+        
         <% if @team.employees.any? %>
           <p><strong>Team Members:</strong></p>
           <div class="member-select-dropdown1">
@@ -25,6 +25,11 @@
           </div>
         <% else %>
           <p>Currently, there are no members in this team.</p>
+        <% end %>
+        <% if admin_signed_in? %>
+            <%= link_to edit_team_path(@team),
+              class: "bi bi-pencil-square button-edit-top" do %>
+            <% end %>
         <% end %>
   </div>
   </div>

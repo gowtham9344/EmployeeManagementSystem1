@@ -229,11 +229,14 @@
     .data-container {
       width: 400px; 
       padding: 20px;
+      padding-top: 40px;
       border-radius: 8px;
       background-color: #ccc;
       color: #000000;
       overflow-y: auto; 
+      overflow-x: hidden;
       box-shadow: 0 0 10px rgba(211, 211, 211, 0.5); 
+      position: relative;
     }
 
     .data-container p {
@@ -309,6 +312,23 @@
       font-family: Arial, sans-serif;
       background-color: #121212;
       color: #ffffff;
+    }
+
+    .button-edit-top{
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      padding-right: 4px;
+      padding-left: 4px;
+      border-radius: 25px;
+      color: black;
+      background-color: white;
+      border: 0px;
+    }
+
+    .button-edit-top:hover{
+      color:white;
+      background-color: black;
     }
 
     .active{

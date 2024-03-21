@@ -45,8 +45,14 @@
       <strong>Team:</strong> haven't been assigned to a team yet.
     </p>
   <% end %>
+  <% if admin_signed_in? %>
+      <%= link_to edit_employee_path(@employee),
+        class: "bi bi-pencil-square button-edit-top" do %>
+      <% end %>
+  <% end %>
  </div>
  </div>
+
 
 <script>
   document.querySelectorAll('.employee').forEach(function(element) {
