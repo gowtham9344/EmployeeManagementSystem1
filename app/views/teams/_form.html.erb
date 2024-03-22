@@ -18,7 +18,7 @@
         <% employees = [OpenStruct.new(id: nil, name: "No one")] + Employee.where('team_id IS NULL OR team_id = ?', @team.id).order(:name) %>
         <%= form.collection_select :manager_id, employees, :id, ->(employee) { employee.name.capitalize }, { prompt: 'Select Manager' } %>
       </p>
-      
+
       <p>
         <%= form.label 'Select Members' %><br>
         <% employees = Employee.where('team_id IS NULL OR team_id = ?', @team.id).order(:name) %>
