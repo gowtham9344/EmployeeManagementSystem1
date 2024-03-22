@@ -6,6 +6,10 @@ Rails.application.routes.draw do
 
   devise_for :users
   get 'welcome/index'
+
+  get 'teams/search'
+
+  get 'employees/search'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :employees
   resources :teams

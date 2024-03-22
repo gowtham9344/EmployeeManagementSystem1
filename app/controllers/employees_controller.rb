@@ -1,6 +1,6 @@
 class EmployeesController < ApplicationController
-    before_action :authenticate_user!, unless: :admin_signed_in?, only: [:show, :index]
-    before_action :authenticate_admin!,except:[:show,:index]
+    before_action :authenticate_user!, unless: :admin_signed_in?, only: [:show, :index,:search]
+    before_action :authenticate_admin!,except:[:show,:index,:search]
 
     def new
         @employee = Employee.new
@@ -55,6 +55,10 @@ class EmployeesController < ApplicationController
 
     def index
         @employees = Employee.all
+    end
+
+    def search
+        @employees = Employee.where("name LIKE ? or email LIKE ?","%" + params[:key] + "%","%" + params[:key] + "%")
     end
 
     private

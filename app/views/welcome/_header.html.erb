@@ -52,7 +52,20 @@
         </li>
       </ul>
     </div>
-
+    <% end %>
+    <% if user_signed_in? || admin_signed_in? %>
+    <div class="employeeSearch" style="display: none;">
+      <form class="d-flex formSearch" role="search" action="/employees/search">
+        <input class="form-control me-2" type="search" name="key" placeholder="Employee Name or Email" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+    <div class="TeamSearch" style="display: none;">
+      <form class="d-flex formSearch" role="search" action="/teams/search">
+        <input class="form-control me-2" type="search" name="key" placeholder="Team Name" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
     <% end %>
   </div>
 </nav>

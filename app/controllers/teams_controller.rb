@@ -1,6 +1,6 @@
 class TeamsController < ApplicationController
-    before_action :authenticate_user!, unless: :admin_signed_in?, only: [:show, :index]
-    before_action :authenticate_admin!,except:[:show,:index]
+    before_action :authenticate_user!, unless: :admin_signed_in?, only: [:show, :index, :search]
+    before_action :authenticate_admin!,except:[:show,:index,:search]
 
     def new
         @team = Team.new
@@ -44,6 +44,10 @@ class TeamsController < ApplicationController
 
     def index
         @teams = Team.all
+    end
+
+    def search
+        @teams = Team.where("name LIKE ?","%" + params[:key] + "%")
     end
 
     def destroy

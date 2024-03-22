@@ -347,3 +347,24 @@
       margin-bottom: 12px;
       margin-left: 5px;
     }
+
+
+    .employeeSearch , .TeamSearch{
+      margin: 0;
+      height: 40px;
+    }
+
+    .formSearch button[type="submit"]{
+      border-color: black;
+      color: white;
+    }
+
+    .formSearch button[type="submit"]:hover{
+      color: white;
+      background-color: #000000;
+    }
+
+    .add-team1{
+      margin-right: 15px;
+      font-size: larger;
+    }
