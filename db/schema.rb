@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 2024_03_21_090932) do
     t.bigint "team_id"
     t.index ["email"], name: "index_employees_on_email", unique: true
     t.index ["mobile"], name: "index_employees_on_mobile", unique: true
+    t.index ["name"], name: "index_employees_on_name"
     t.index ["team_id"], name: "index_employees_on_team_id"
   end
 
