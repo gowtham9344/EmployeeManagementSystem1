@@ -1,15 +1,14 @@
 Rails.application.routes.draw do
-  devise_for :admins, skip: [:registrations]
-  as :admin do
-    get 'admins/sign_up', to: redirect('/admins/sign_in')
-  end
-
-  devise_for :users
   get 'welcome/index'
 
   get 'teams/search'
 
   get 'employees/search'
+
+  get 'login' , to: 'sessions#new'
+  delete 'logout' ,  to: 'sessions#destroy'
+
+  post 'login' , to:'sessions#create'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :employees
   resources :teams

@@ -14,7 +14,7 @@
             <strong>Team:</strong> <%= employee.team ? employee.team.name.capitalize : 'Not Assigned' %>
           </div>
         </div>
-        <% if admin_signed_in? %>
+        <% if is_admin? %>
         <div class="actions">
             <%= link_to edit_employee_path(employee),
                 class: "bi bi-pencil-square" do %>

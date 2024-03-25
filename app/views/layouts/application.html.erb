@@ -13,15 +13,15 @@
   </head>
   <body>
     <%= render 'welcome/header'%>
-   <% if alert %>
+    <% if flash[:alert] %>
       <div class="alert1">
-        <span><%= alert %></span>
+        <span><%= flash[:alert] %></span>
       </div>
     <% end %>
 
-    <% if notice %>
+    <% if flash[:notice] %>
       <div class="notice1">
-        <span><%= notice %></span>
+        <span><%= flash[:notice] %></span>
       </div>
     <% end %>
     <%= yield %>

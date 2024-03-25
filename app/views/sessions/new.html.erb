@@ -1,0 +1,26 @@
+<div class="index-container">
+  <div class="center-container2">
+    <%= form_tag '/login' do %>
+      <h2 class="h2_container">Sign in</h2>
+      
+      <p>
+        <%= label_tag 'email', 'Email <span class="required">*</span>'.html_safe %><br />
+        <%= email_field_tag :email, nil, autofocus: true, autocomplete: "email" %>
+      </p>
+
+      <p class="field">
+        <%= label_tag 'password', 'Password <span class="required">*</span>'.html_safe %><br />
+        <%= password_field_tag :password, nil, autocomplete: "current-password" %>
+      </p>
+
+      <div class="submit-button">
+        <%= submit_tag "Sign in" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<script>
+    document.querySelectorAll('.signin').forEach(function(element) {
+          element.className += ' active'
+    });
+</script>

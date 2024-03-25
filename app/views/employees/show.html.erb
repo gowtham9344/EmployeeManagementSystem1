@@ -45,7 +45,7 @@
       <strong>Team:</strong> haven't been assigned to a team yet.
     </p>
   <% end %>
-  <% if admin_signed_in? %>
+  <% if is_admin? %>
       <%= link_to edit_employee_path(@employee),
         class: "bi bi-pencil-square button-edit-top" do %>
       <% end %>

@@ -26,7 +26,7 @@
         <% else %>
           <p>Currently, there are no members in this team.</p>
         <% end %>
-        <% if admin_signed_in? %>
+        <% if is_admin? %>
             <%= link_to edit_team_path(@team),
               class: "bi bi-pencil-square button-edit-top" do %>
             <% end %>
