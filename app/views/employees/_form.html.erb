@@ -49,6 +49,8 @@
       <% end %>
     </p>
 
+    <%= form.hidden_field :role, value: 'employee' %>
+    
     <p>
       <%= form.label :team_id %><br>
       <% teams = [OpenStruct.new(id: nil, name: "No Team")] + Team.all %>

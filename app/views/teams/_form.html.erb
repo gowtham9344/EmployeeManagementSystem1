@@ -15,13 +15,13 @@
 
       <p>
         <%= form.label :manager_id, 'Select Manager' %><br>
-        <% employees = [OpenStruct.new(id: nil, name: "No one")] + Employee.where('team_id IS NULL OR team_id = ?', @team.id).order(:name) %>
+        <% employees = [OpenStruct.new(id: nil, name: "No one")] + Employee.where('(team_id IS NULL OR team_id = ?) AND role = ?', @team.id, 'employee').order(:name) %>
         <%= form.collection_select :manager_id, employees, :id, ->(employee) { employee.name.capitalize }, { prompt: 'Select Manager' } %>
       </p>
 
       <p>
         <%= form.label 'Select Members' %><br>
-        <% employees = Employee.where('team_id IS NULL OR team_id = ?', @team.id).order(:name) %>
+        <% employees = Employee.where('(team_id IS NULL OR team_id = ?) AND role = ?', @team.id, 'employee').order(:name) %>
         <% if employees.any? %>
           <div class="member-select-dropdown">
           <%= form.collection_check_boxes :employee_ids, employees, :id, :name do |cb| %>
@@ -42,7 +42,7 @@
 </div>
 
    <script>
-      var initialEmployeeList = <%= raw Employee.where('team_id IS NULL OR team_id = ?', @team.id).to_json %>;
+      var initialEmployeeList = <%= raw Employee.where('(team_id IS NULL OR team_id = ?) AND role = ?', @team.id, 'employee').to_json %>;
 
       var managerSelect = document.getElementById('team_manager_id');
       var employeeCheckboxes = document.querySelectorAll('[name="team[employee_ids][]"]');

@@ -1,13 +1,18 @@
 class TeamsController < ApplicationController
-    before_action :must_login, unless: :is_admin?, only: [:show, :index, :search]
-    before_action :must_login, except:[:show,:index,:search]
+    before_action :must_login2,except:[:show,:index,:search]
+    before_action :must_login1,only:[:show,:index,:search]
 
     def new
         @team = Team.new
     end
 
     def edit
-        @team = Team.find(params[:id])
+        @team = Team.find_by(id: params[:id])
+        
+        if @team.nil?
+            flash[:alert] = "No team available"
+            redirect_to teams_path
+        end
     end
 
     def create 
@@ -22,7 +27,7 @@ class TeamsController < ApplicationController
     end
 
     def update
-        @team = Team.find(params[:id])
+        @team = Team.find_by(id: params[:id])
 
 
         TeamManagerService.new(@team).remove_manager
@@ -39,7 +44,11 @@ class TeamsController < ApplicationController
     end
 
     def show
-        @team = Team.find(params[:id])
+        @team = Team.find_by(id: params[:id])
+        if @team.nil?
+            flash[:alert] = "No team available"
+            redirect_to teams_path
+        end
     end
 
     def index
@@ -51,7 +60,7 @@ class TeamsController < ApplicationController
     end
 
     def destroy
-        @team = Team.find(params[:id])
+        @team = Team.find_by(id: params[:id])
         TeamManagerService.new(@team).remove_manager
 
         if(@team)

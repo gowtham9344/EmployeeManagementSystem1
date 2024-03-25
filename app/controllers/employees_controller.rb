@@ -1,19 +1,22 @@
 class EmployeesController < ApplicationController
-    before_action :must_login, unless: :is_admin?, only: [:show, :index, :search]
-    before_action :must_login, except:[:show,:index,:search] 
+    before_action :must_login2,except:[:show,:index,:search]
+    before_action :must_login1,only:[:show,:index,:search]
 
     def new
         @employee = Employee.new
     end
 
     def edit
-        @employee = Employee.find(params[:id])
+        @employee = Employee.where.not(role: 'admin').find_by(id: params[:id])
+        if(@employee.nil?)
+            flash[:alert] = "No Employee available"
+            redirect_to employees_path
+        end
     end
 
     def create 
         @employee = Employee.new(employee_params)
-       
-        
+    
         if @employee.save
             EmployeeManagerService.new(@employee).assign_manager
             redirect_to @employee
@@ -23,8 +26,8 @@ class EmployeesController < ApplicationController
     end
 
     def update
-        @employee = Employee.find(params[:id])
-        employee1 = Employee.find(params[:id])
+        @employee = Employee.where.not(role: 'admin').find_by(id: params[:id])
+        employee1 = Employee.where.not(role: 'admin').find_by(id: params[:id])
         employee2 = employee1.team ? employee1.team.manager : nil
 
         EmployeeManagerService.new(@employee).remove_manager
@@ -38,7 +41,7 @@ class EmployeesController < ApplicationController
     end
 
     def destroy
-        @employee = Employee.find(params[:id])
+        @employee = Employee.where.not(role: 'admin').find_by(id: params[:id])
 
         EmployeeManagerService.new(@employee).remove_manager
 
@@ -50,22 +53,26 @@ class EmployeesController < ApplicationController
     end
 
     def show
-        @employee = Employee.find(params[:id])
+        @employee = Employee.where.not(role: 'admin').find_by(id: params[:id])
+        if(@employee.nil?)
+            flash[:alert] = "No Employee available"
+            redirect_to employees_path
+        end
     end
 
     def index
-        @employees = Employee.all
+        @employees = Employee.where.not(role: 'admin')
     end
+      
 
     def search
-        @employees = Employee.where("name LIKE ? or email LIKE ?","%" + params[:key] + "%","%" + params[:key] + "%")
+        @employees = Employee.where.not(role: 'admin').where("name LIKE ? OR email LIKE ?", "%#{params[:key]}%", "%#{params[:key]}%")
     end
 
     private
 
     def employee_params
-        params.require(:employee).permit(:name,:email,:address,:mobile, :team_id,:is_manager)
+        params.require(:employee).permit(:name,:email,:address,:mobile, :team_id,:is_manager,:role)
     end
-
     
 end
