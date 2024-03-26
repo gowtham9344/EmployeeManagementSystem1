@@ -1,0 +1,42 @@
+<div class="index-container">
+<div class="center-container">
+<%= form_with model: current_user, url: update_password_path, local: true do |f| %>
+  <h2 class="h2_container">Edit password</h2>  
+  <p>
+    <%= f.label :password, "New password" %>
+    <%= f.password_field :password, autofocus: true, autocomplete: "new-password" %>
+    <% if f.object.errors.any? && f.object.errors[:password].any? %>
+        <div id="error_explanation">
+          <ul>
+              <li><%= "password " + f.object.errors[:password][0] %></li>
+          </ul>
+        </div>
+    <% end %>
+    <span>leave empty if you doesn't want to change the password</span>
+  </p>
+
+  <p>
+    <%= f.label :password_confirmation, "Confirm new password" %>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <% if f.object.errors.any? && f.object.errors[:password_confirmation].any? %>
+        <span id="error_explanation">
+          <ul>
+              <li><%= "password confirmation " + f.object.errors[:password_confirmation][0] %></li>
+          </ul>
+        </span>
+    <% end %>
+    <span>leave empty if you doesn't want to change the password</span>
+  </p>
+
+  <p class="submit-button">
+      <%= f.submit "update password"%>
+  </p>
+<% end %>
+</div>
+</div>
+
+<script>
+   document.querySelectorAll('.edit-pass-nav').forEach(function(element) {
+            element.className += ' active'
+    });
+</script>

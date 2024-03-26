@@ -2,7 +2,7 @@
   <div class="center-container">
     <%= form_with model: @employee, local: true do |form| %>
     <p>
-      <%= form.label :name , 'Name <span class="required">*</span>'.html_safe , required: true%><br>
+      <%= form.label :name , 'Name <span class="required">*</span>'.html_safe , required: true%>
       <%= form.text_field :name %>
       <% if @employee.errors.any? && @employee.errors[:name].any? %>
         <div id="error_explanation">
@@ -14,7 +14,7 @@
     </p>
 
     <p>
-      <%= form.label :email , 'Email <span class="required">*</span>'.html_safe , required: true %><br>
+      <%= form.label :email , 'Email <span class="required">*</span>'.html_safe , required: true %>
       <%= form.text_field :email %>
       <% if @employee.errors.any? && @employee.errors[:email].any? %>
         <div id="error_explanation">
@@ -26,7 +26,7 @@
     </p>
 
     <p>
-      <%= form.label :address , 'Address <span class="required">*</span>'.html_safe , required: true %><br>
+      <%= form.label :address , 'Address <span class="required">*</span>'.html_safe , required: true %>
       <%= form.text_area :address %>
       <% if @employee.errors.any? && @employee.errors[:address].any? %>
         <div id="error_explanation">
@@ -38,7 +38,7 @@
     </p>
 
     <p>
-      <%= form.label :mobile , 'Mobile Number <span class="required">*</span>'.html_safe , required: true %><br>
+      <%= form.label :mobile , 'Mobile Number <span class="required">*</span>'.html_safe , required: true %>
       <%= form.text_field :mobile %>
       <% if @employee.errors.any? && @employee.errors[:mobile].any? %>
         <div id="error_explanation">
@@ -52,7 +52,7 @@
     <%= form.hidden_field :role, value: 'employee' %>
     
     <p>
-      <%= form.label :team_id %><br>
+      <%= form.label :team_id %>
       <% teams = [OpenStruct.new(id: nil, name: "No Team")] + Team.all %>
       <%= form.collection_select :team_id, teams, :id, ->(team) { team.name.capitalize }, prompt: 'Select Team' %>
     </p>

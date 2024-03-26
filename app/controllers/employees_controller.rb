@@ -18,7 +18,7 @@ class EmployeesController < ApplicationController
         @employee = Employee.new(employee_params)
     
         if @employee.save
-            EmployeeManagerService.new(@employee).assign_manager
+            Management::EmployeeManagerService.new(@employee).assign_manager
             redirect_to @employee
         else
             render 'new'
@@ -30,10 +30,10 @@ class EmployeesController < ApplicationController
         employee1 = Employee.where.not(role: 'admin').find_by(id: params[:id])
         employee2 = employee1.team ? employee1.team.manager : nil
 
-        EmployeeManagerService.new(@employee).remove_manager
+        Management::EmployeeManagerService.new(@employee).remove_manager
        
         if(@employee && @employee.update(employee_params))
-            EmployeeManagerService.new(@employee).change_manager(employee1,employee2)
+            Management::EmployeeManagerService.new(@employee).change_manager(employee1,employee2)
             redirect_to @employee
         else
            render 'edit'
@@ -43,7 +43,7 @@ class EmployeesController < ApplicationController
     def destroy
         @employee = Employee.where.not(role: 'admin').find_by(id: params[:id])
 
-        EmployeeManagerService.new(@employee).remove_manager
+        Management::EmployeeManagerService.new(@employee).remove_manager
 
         if(@employee)
             @employee.destroy

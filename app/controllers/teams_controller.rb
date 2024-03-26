@@ -19,7 +19,7 @@ class TeamsController < ApplicationController
         @team = Team.new(team_params)
     
         if @team.save
-            TeamManagerService.new(@team).set_manager
+            Management::TeamManagerService.new(@team).set_manager
             redirect_to @team
         else
             render "/teams/new"
@@ -30,11 +30,11 @@ class TeamsController < ApplicationController
         @team = Team.find_by(id: params[:id])
 
 
-        TeamManagerService.new(@team).remove_manager
+        Management::TeamManagerService.new(@team).remove_manager
         
 
         if(@team && @team.update(team_params))
-            TeamManagerService.new(@team).set_manager
+            Management::TeamManagerService.new(@team).set_manager
             redirect_to @team
         elsif(!@team)
             redirect_to @teams
@@ -61,7 +61,7 @@ class TeamsController < ApplicationController
 
     def destroy
         @team = Team.find_by(id: params[:id])
-        TeamManagerService.new(@team).remove_manager
+        Management::TeamManagerService.new(@team).remove_manager
 
         if(@team)
             @team.destroy

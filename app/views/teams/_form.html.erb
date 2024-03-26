@@ -2,7 +2,7 @@
   <div class="center-container">
     <%= form_with model: @team, local: true do |form| %>
       <p>
-        <%= form.label :name , 'Name <span class="required">*</span>'.html_safe , required: true %><br>
+        <%= form.label :name , 'Name <span class="required">*</span>'.html_safe , required: true %>
         <%= form.text_field :name %>
         <% if @team.errors.any? && @team.errors[:name].any? %>
           <div id="error_explanation">
@@ -14,13 +14,13 @@
       </p>
 
       <p>
-        <%= form.label :manager_id, 'Select Manager' %><br>
+        <%= form.label :manager_id, 'Select Manager' %>
         <% employees = [OpenStruct.new(id: nil, name: "No one")] + Employee.where('(team_id IS NULL OR team_id = ?) AND role = ?', @team.id, 'employee').order(:name) %>
         <%= form.collection_select :manager_id, employees, :id, ->(employee) { employee.name.capitalize }, { prompt: 'Select Manager' } %>
       </p>
 
       <p>
-        <%= form.label 'Select Members' %><br>
+        <%= form.label 'Select Members' %>
         <% employees = Employee.where('(team_id IS NULL OR team_id = ?) AND role = ?', @team.id, 'employee').order(:name) %>
         <% if employees.any? %>
           <div class="member-select-dropdown">

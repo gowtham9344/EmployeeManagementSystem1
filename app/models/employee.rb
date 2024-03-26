@@ -6,8 +6,8 @@ class Employee < ApplicationRecord
   validates :address, presence: true
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP } , uniqueness: true
   validates :role, presence: true
-  validates_length_of :password, minimum: 6, maximum: 20, if: :password_required?
-
+  validates_length_of :password, minimum: 6, maximum: 20, if: :password_required?, message: "must be between 6 and 20 characters long"
+  validates :password_confirmation, presence: true, if: :password_required?
   before_validation :set_default_password, on: :create
 
   private
@@ -16,6 +16,6 @@ class Employee < ApplicationRecord
   end
 
   def password_required?
-    new_record? || password.present?
+    new_record? || password.present? || password_confirmation.present?
   end
 end

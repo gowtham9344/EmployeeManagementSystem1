@@ -1,9 +1,16 @@
 Rails.application.routes.draw do
+  get 'passwords/edit'
+  get 'passwords/update'
   get 'welcome/index'
+
+  get "password" , to: 'passwords#edit', as: :edit_password
+  patch "password" , to: 'passwords#update', as: :update_password
 
   get 'teams/search'
 
   get 'employees/search'
+
+  
 
   get 'login' , to: 'sessions#new'
   delete 'logout' ,  to: 'sessions#destroy'
