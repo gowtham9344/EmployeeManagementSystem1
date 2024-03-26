@@ -6,6 +6,7 @@ class PasswordsController < ApplicationController
   
     def update
       if current_user.update(password_params)
+        flash[:notice] = 'password updated'
         redirect_to employees_path
       else
         render 'edit'  
@@ -13,7 +14,6 @@ class PasswordsController < ApplicationController
     end
   
     private
-  
     def password_params
       params.require(:employee).permit(:password, :password_confirmation)
     end

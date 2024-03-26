@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
     helper_method :current_user, :logged_in?, :is_admin?, :must_login
+    rescue_from StandardError, with: :handle_exception
     
     def current_user
       @current_user ||= Employee.find_by(id: session[:user_id]) if session[:user_id]
@@ -29,6 +30,14 @@ class ApplicationController < ActionController::Base
         return false
       end
       true
-    end    
+    end
+    
+    def page_not_found
+      redirect_to '/404'
+    end
+
+    def handle_exception(exception)
+      redirect_to '/500'
+    end
   end
   

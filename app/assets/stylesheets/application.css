@@ -215,11 +215,17 @@
     .alert1 {
       background: #721c24;
       color: #fff;
+      position: absolute;
+      top:60px;
+      width: 100vw;
     }
     
     .notice1 {
       background: #10d42a;
       color: #fff;
+      position: absolute;
+      top:60px;
+      width: 100vw;
     }
     
     .center-container form {
@@ -304,6 +310,7 @@
 
     .navbar{
       background-color: #ADADAD !important;
+      height: 60px;
     }
 
     body{

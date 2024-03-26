@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
   
   def destroy
     session[:user_id] = nil
-    flash[:success] = "Good bye"
+    flash[:notice] = "Good bye"
     redirect_to root_path
   end 
 end

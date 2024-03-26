@@ -12,6 +12,7 @@ class Employee < ApplicationRecord
 
   private
   def set_default_password
+    self.password_confirmation = "password123" if password.blank?
     self.password = "password123" if password.blank?
   end
 

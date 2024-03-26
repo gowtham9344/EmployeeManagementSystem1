@@ -16,7 +16,7 @@
               <% end %>
             </div>
           </div>
-          <% if admin_signed_in? %>
+          <% if is_admin? %>
           <div class="actions">
             <%= link_to edit_team_path(team),
               class: "bi bi-pencil-square" do %>

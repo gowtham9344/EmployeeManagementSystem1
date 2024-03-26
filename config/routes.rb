@@ -20,4 +20,6 @@ Rails.application.routes.draw do
   resources :employees
   resources :teams
   root 'welcome#index'
+
+  get '*path', to: 'application#page_not_found'
 end

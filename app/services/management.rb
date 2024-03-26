@@ -30,7 +30,7 @@ module Management
                 @employee.team.update(manager_id:@employee.id)
             else
                 if(employee2 && @employee.id != employee2.id)
-                    employee1.team.update(manager_id:employee2.id)
+                    employee2.team.update(manager_id:employee2.id)
                 end
             end
         end
@@ -38,6 +38,24 @@ module Management
         def remove_manager
             if(@employee && @employee.team)
                 @employee.team.update(manager_id:nil)
+            end
+        end
+    end
+
+    class TeamManagerService
+        def initialize(team)
+        @team = team
+        end
+    
+        def remove_manager
+            if(@team && @team.manager)
+                @team.manager.update(team_id:nil,is_manager:false)
+            end
+        end
+
+        def set_manager
+            if(@team && @team.manager)
+                @team.manager.update(team_id:@team.id,is_manager:true)
             end
         end
     end
